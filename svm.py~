@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.svm import SVR
+from sklearn.svm import SVC
 from sklearn.preprocessing import normalize
 
 ''' This module contains functions for SVR regression as well as
@@ -7,7 +7,7 @@ from sklearn.preprocessing import normalize
 	normalizing features, and training/testing using support vector
 	regression.  '''
 
-def compile_targets(filename):
+def compile_targets(filename, threshold = 0.6):
 	# Construct target vector
 	ratings = []
 	with open(filename, 'r') as f:
@@ -17,22 +17,24 @@ def compile_targets(filename):
 				line = line[len('review/helpfulness: '):]
 				numbers = line.split('/')
 				percent = float(numbers[0]) / float(numbers[1])
-				ratings.append(percent)
+				if percent > threshold:
+					ratings.append(1.0)
+				else:
+					ratings.append(0.0)
 			line = f.readline()
 
-	return numpy.array(ratings)
+	return np.array(ratings)
 
 def normalize_features(X):
 	np.normalize(X)
 
 def train(X, y):
-	svr = SVR()
-	svr.fit(X, y)
-	return svr
+	svm = SVC()
+	svm.fit(X, y)
+	return svm
 
-def test(svr, X, t, print_r2 = False):
-	return svr.predict(X)
-	
+def test(svm, X, t):
+	return svm.predict(X)
 
 if __name__ == "__main__":
 	''' For utility function testing purposes '''
@@ -40,5 +42,5 @@ if __name__ == "__main__":
 	X = np.random.seed(0)
 	y = np.random.randn(n_samples)
 	X = np.random.randn(n_samples, n_features)
-	svr = train(X, y)
-	test(svr, X, y)
+	svm = train(X, y)
+	test(svm, X, y)
