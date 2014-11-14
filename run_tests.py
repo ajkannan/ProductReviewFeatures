@@ -96,6 +96,8 @@ if __name__ == "__main__":
 	X_train = numpy.hstack((kim, zhang, sent))
 	t_train = svm.compile_targets(train_file)
 
+	print X_train.shape
+
 	model = svm.train(X_train, t_train)
 
 	test_file = '/home/ak/Courses/cs73/project/dataset/small_test.txt'
@@ -107,4 +109,5 @@ if __name__ == "__main__":
 	t_test = svm.compile_targets(test_file)
 
 	y_pred = svm.test(model, X_test)
+	print y_pred.shape, numpy.sum(y_pred)
 	metrics.run_classification_metrics(t_test, y_pred)
