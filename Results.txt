@@ -1,0 +1,133 @@
+Kim with tfidf + lsi
+Accuracy
+0.597
+Precision
+0.557666214383
+Recall
+0.842213114754
+F1 Score
+0.671020408163
+Mean Squared Error
+0.0899310240381
+Explained variance
+0.0830745537662
+(Without lsi, the accuracy was terrible)
+
+O'Mahony
+Accuracy
+0.57
+Precision
+0.543154761905
+Recall
+0.747950819672
+F1 Score
+0.629310344828
+Mean Squared Error
+0.103193149566
+Explained variance
+-0.117019278854
+
+
+Liu
+Accuracy
+0.582
+Precision
+0.555379746835
+Recall
+0.719262295082
+F1 Score
+0.626785714286
+Mean Squared Error
+0.0944460892587
+Explained variance
+0.0221160835206
+
+
+
+Zhang
+
+Accuracy
+0.496
+Precision
+0.489847715736
+Recall
+0.790983606557
+F1 Score
+0.605015673981
+Mean Squared Error
+0.105409123275
+Explained variance
+-0.0714352408212
+
+
+
+tfidf unigrams with lemmatization but without lsi
+Terrible accuracy
+
+tfidf unigrams + lemmatization + lsi
+Accuracy
+0.549
+Precision
+0.520624303233
+Recall
+0.956967213115
+F1 Score
+0.674368231047
+Mean Squared Error
+0.0991283264928
+Explained variance
+0.00419150841297
+
+sentiment
+0 0.492033548109
+1 0.507966451891
+Accuracy
+0.548
+Precision
+0.521126760563
+Recall
+0.909836065574
+F1 Score
+0.662686567164
+Mean Squared Error
+0.0986320458686
+Explained variance
+0.00655550821855
+
+
+pos (basic pos: noun, verb, adj+adv, first person verbs, all 4 added)
+Accuracy
+0.568
+Precision
+0.541297935103
+Recall
+0.752049180328
+F1 Score
+0.629502572899
+Mean Squared Error
+0.0954461216704
+Explained variance
+0.0327418994006
+
+
+
+Only combo with slightly higher accuracy than each by itself
+
+Kim + Zhang
+Accuracy
+0.601
+Precision
+0.563120567376
+Recall
+0.813524590164
+F1 Score
+0.665549036044
+Mean Squared Error
+0.0982330156221
+Explained variance
+0.00916499580639
+
+
+
+
+
