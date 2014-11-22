@@ -19,6 +19,10 @@ def run_classification_metrics(correct, results):
 	print "F1 Score"
 	print sklearn.metrics.f1_score(correct, results)
 
+	print "Confusion matrix"
+	print sklearn.metrics.confusion_matrix(correct, results)
+	
+
 	#print "ROC AUC"
 	#print sklearn.metrics.roc_auc_score(correct, results)
 

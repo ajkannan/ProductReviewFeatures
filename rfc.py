@@ -1,7 +1,6 @@
 from __future__ import division
 import numpy as np
-from sklearn.svm import SVC
-from sklearn.grid_search import GridSearchCV as gs
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import normalize
 import tfidfSparse as tf
 from scipy.sparse import csr_matrix, coo_matrix
@@ -14,62 +13,34 @@ import itertools
 	normalizing features, and training/testing using support vector
 	regression.  '''
 
-def compile_targets(filename, threshold = 0.75, binary_threshold = True):
+def compile_targets(filename, threshold = 0.75):
 	# Construct target vector
 	ratings = []
 	with open(filename, 'r') as f:
 		line = f.readline()
-		percents = []
 		while line != '':
 			if 'review/helpfulness: ' in line:
 				line = line[len('review/helpfulness: '):]
 				numbers = line.split('/')
 				percent = float(numbers[0]) / float(numbers[1])
-				percents.append(percent)
-				if binary_threshold:
-					if percent > threshold:
-						ratings.append(1)
-					else:
-						ratings.append(0)
+				if percent > threshold:
+					ratings.append(1)
+				else:
+					ratings.append(0)
 			line = f.readline()
 
-	if binary_threshold:
-		print ratings.count(0)
-		print ratings.count(1)
-		return np.array(ratings)
-
-	"""percents = np.array(percents)
-	uq = np.percentile(percents, 75)
-	m = np.percentile(percents, 50)
-	lq = np.percentile(percents, 25)
-	print uq, m, lq
-	for i in xrange(percents.shape[0]):
-		if percents[i] < lq:
-			percents[i] = 0
-		elif percents[i] >= lq and percents[i] < m:
-			percents[i] = 1
-		elif percents[i] >= m and percents[i] < uq:
-			percents[i] = 2
-		elif percents[i] >= uq:
-			percents[i] = 3
-	print len(np.where(percents == 0)[0])
-	print len(np.where(percents == 1)[0])
-	print len(np.where(percents == 2)[0])
-	print len(np.where(percents == 3)[0])
-	
-	return percents"""
+	return np.array(ratings)
 
 def normalize_features(X):
-	normalize(X, axis=0)
+	np.normalize(X)
 
 def train(X, y):
-	svm = SVC(C = 1000, kernel='rbf')
-	#svm = SVC(kernel='linear', class_weight='auto', tol=1e-2)
-	svm.fit(X, y)
-	return svm
+	rf = RandomForestClassifier(n_estimators=100)
+	rf.fit(X, y)
+	return rf
 
-def test(svm, X):
-	return svm.predict(X)
+def test(rf, X):
+	return rf.predict(X)
 
 # converts a list of dictionaries to a 
 # scipy sparse CSR matrix, given a key id map

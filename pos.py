@@ -60,6 +60,5 @@ def get_pos(filename):
 	return postag_unigrams
 	
 if __name__ == "__main__":
-	 postag_unigrams = get_pos("../../dataset/small_train.txt")
-	 postag_unigrams = get_pos("../../dataset/small_test.txt")
-	 print postag_unigrams
+	write_pos_file("../../dataset/small_small_train.txt")
+	write_pos_file("../../dataset/small_small_test.txt")

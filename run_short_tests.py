@@ -109,7 +109,7 @@ def tfidf_ngrams(train_filename, test_filename, with_lsi = True):
 	Xp_trunc = svd.transform(Xp)
 	
 	if with_lsi:
-		return scipy.sparse.csr_matrix(X_trunc), scipy.sparse.csr_matrix(Xp_trunc)
+		return X_trunc, Xp_trunc
 	else:
 		return X, Xp
 
@@ -190,8 +190,8 @@ def show_regression(pred, actual):
 	plt.show()
 
 def main():
-	train_file = '/home/ak/Courses/cs73/project/dataset/small_train.txt'
-	test_file = '/home/ak/Courses/cs73/project/dataset/small_test.txt'
+	train_file = '/home/ak/Courses/cs73/project/dataset/small_small_train.txt'
+	test_file = '/home/ak/Courses/cs73/project/dataset/small_small_test.txt'
 
 	sent_included = False
 	train_feats = []
@@ -230,18 +230,6 @@ def main():
 		tfidf_train, tfidf_test = tfidf_ngrams(train_file, test_file, with_lsi=False)
 		train_feats.append(tfidf_train)
 		test_feats.append(tfidf_test)
-	if 's' in sys.argv:
-		train_feats.append(many_sentiment(train_file))
-		test_feats.append(many_sentiment(test_file))
-	if 'tl' in sys.argv:
-		tfidf_train, tfidf_test = tfidf_ngrams(train_file, test_file, with_lsi=True)
-		train_feats.append(tfidf_train)
-		test_feats.append(tfidf_test)
-	if 'bp' in sys.argv:
-		train_feats.append(kim_pos(train_file))
-		test_feats.append(kim_pos(test_file))
-		
-		
 
 	X_train = None
 	X_test = None
@@ -261,11 +249,10 @@ def main():
 	t_test_thresh = svm.compile_targets(test_file)
 
 
-	clf = ExtraTreesClassifier()
+	'''clf = ExtraTreesClassifier()
 	X_new = clf.fit(X_train.toarray(), t_train_thresh).transform(X_train)
-	if clf.feature_importances_.shape[0] < 500:
-		for i in xrange(clf.feature_importances_.shape[0]):
-			print i, clf.feature_importances_[i]
+	for i in xrange(clf.feature_importances_.shape[0]):
+		print i, clf.feature_importances_[i]'''
 
 	'''bsvm = SVC(kernel="linear")
 	selector = RFECV(bsvm, step=10)

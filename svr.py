@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.svm import SVR
+from sklearn.grid_search import GridSearchCV as gs
 from sklearn.preprocessing import normalize
 
 ''' This module contains functions for SVR regression as well as
@@ -20,17 +21,18 @@ def compile_targets(filename):
 				ratings.append(percent)
 			line = f.readline()
 
-	return numpy.array(ratings)
+	return np.array(ratings)
 
 def normalize_features(X):
 	np.normalize(X)
 
 def train(X, y):
 	svr = SVR()
+	#svr = SVR(kernel='linear')
 	svr.fit(X, y)
 	return svr
 
-def test(svr, X, t, print_r2 = False):
+def test(svr, X):
 	return svr.predict(X)
 	
 
